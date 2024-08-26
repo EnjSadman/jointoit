@@ -1,0 +1,32 @@
+.modal {
+  position: absolute;
+  z-index: 10;
+
+  &__backdrop {
+    background-color: rgba(0, 0 ,0 ,0.2);
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__body {
+    min-width: 400px;
+    min-height: 600px;
+
+    background-color: white;
+  }
+}
+
+.modal-visible{
+  &-true {
+    display: block;
+  }
+
+  &-false {
+    display: none;
+  }
+}
