@@ -43,7 +43,8 @@ function App() {
     }
   ]);
 
-  const [modalVisible, setModalVisible] = useState(true)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalDate, setModalDate] = useState();
 
   const moveEvent = useCallback(
     ({ event, start, end, isAllDay: droppedOnAllDaySlot = false }) => {
@@ -64,15 +65,46 @@ function App() {
     [setEvents]
   )
 
+  const newEvent = useCallback(
+    (event) => {
+      console.log(event)
+      setEvents((prev) => {
+        const idList = prev.map((item) => item.id)
+        const newId = Math.max(...idList) + 1
+        return [...prev, { ...event, id: newId, bgColor: "#000000" }]
+      })
+    },
+    [setEvents]
+  )
+
   return (
     <div className="App">
-      <Modal isVisible={modalVisible}/>
+      <Modal
+        isVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        modalDate={modalDate}
+        setModalDate={setModalDate}
+        wholeList={events}
+        setWholeList={setEvents}
+      />
       <DnDCalendar
         localizer={myLocalizer}
         events={events}
         resizable={false}
         draggableAccessor={(event) => true}
-
+        onSelectEvent={(event) => {
+          //console.log(event);
+          setModalVisible(true);
+          setModalDate(event)
+        }}
+        // onE={(event) => {
+        //   setModalVisible(true);
+        //   console.log(event)
+        //   setModalDate(event)
+        // }}
+        onDropFromOutside={(event) => {
+          newEvent(event)
+        }}
         onEventDrop={moveEvent}
       />
     </div>

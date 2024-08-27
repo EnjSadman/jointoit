@@ -13,11 +13,32 @@
     align-items: center;
   }
 
+  &__backdrop:hover {
+    cursor: pointer;
+  }
+
   &__body {
     min-width: 400px;
-    min-height: 600px;
+    min-height: 100px;
+
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+
 
     background-color: white;
+  }
+
+  &__body:hover {
+    cursor: default;
+  }
+
+  &__buttons {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
   }
 }
 
